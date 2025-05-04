@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
 
   return(
-    <BrowserRouter> {/* Wrap Routes inside BrowserRouter */}
+    <HashRouter> {/* HashRouter Routes inside BrowserRouter and fine for github */}
       <Routes>
         <Route path="/" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
@@ -15,7 +15,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<div className="text-white text-center mt-10">404 - Page Not Found</div>} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
