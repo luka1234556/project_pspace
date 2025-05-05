@@ -2,7 +2,7 @@ import LogIn from "./LogIn.jsx"
 import Register from "./Register.jsx"
 import PersonalPage from "./PersonalPage.jsx";
 import Profile from "./Profile.jsx";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 

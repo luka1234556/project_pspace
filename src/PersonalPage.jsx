@@ -91,31 +91,31 @@ import { BsPersonGear, BsLinkedin, BsInfoCircle } from "react-icons/bs";
 
 const Creators = [
   {id:1, name: "Luka Kartvelishvili", status: "Front-End Developer",
-  age: 22, hobby: "Boxing", img: "/public/luka.jpg", 
+  age: 22, hobby: "Boxing", img: "/luka.jpg", 
   role: "junior", experience:1},
 
   {id:2, name: "Matiu Teit", status: "Back-End Developer", 
-  age: 21, hobby: "drawing", img: "/public/Matiu.jpg", 
+  age: 21, hobby: "drawing", img: "/Matiu.jpg", 
   role: "junior", experience:1},
 
   {id:3, name: "Grace Henderson", status: "Front-end developer",
-  age: 27, hobby: "Dancing", img: "/public/Grace.png", 
+  age: 27, hobby: "Dancing", img: "/Grace.png", 
   role: "Senior", experience:7},
 
   {id:4, name: "Mr. Chat-Gpt", status: "Full-stuck developer",
-  age: 40, hobby: "playing on piano", img: "/public/chat.png", 
+  age: 40, hobby: "playing on piano", img: "/chat.png", 
   role: "Senior", experience:10},
 
   {id:5, name: "Temraz Kartvelishvili", status: "UI/UX designer", 
-  age: 19, hobby: "painting", img: "/public/temraz.jpg", 
+  age: 19, hobby: "painting", img: "/temraz.jpg", 
   role: "Middle", experience:2},
 
   {id:6, name: "Ava Sullivan", status: "Back-end developer",
-  age: 35, hobby: "swimming", img: "/public/Ava.png", 
+  age: 35, hobby: "swimming", img: "/Ava.png", 
   role: "Senior", experience:8},
 
   {id:7, name: "Liam Cooper", status: "UI/UX designer", 
-  age: 35, hobby: "Gym", img: "/public/Liam.png", 
+  age: 35, hobby: "Gym", img: "/Liam.png", 
   role: "Senior", experience:9},
 ]
 

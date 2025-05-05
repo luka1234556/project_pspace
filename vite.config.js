@@ -12,5 +12,5 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: "/PSpace",
-})
+  base: "/project-pspace",
+});
