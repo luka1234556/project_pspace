@@ -21,6 +21,10 @@ function Profile() {
   const [tempPosts, setTempPosts] = useState([]);
   const [moreScreen, setMoreScreen] = useState(false);
 
+  const generateAvatar = (username) => {
+    return `https://api.dicebear.com/7.x/initials/svg?seed=${username}`;
+  };
+
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
     const allUsers = JSON.parse(localStorage.getItem("users")) || [];
@@ -34,7 +38,7 @@ function Profile() {
       setUser(storedUser);
       setBioText(storedUser.bio || "");
     } else {
-      navigate("/");
+      navigate("/login");
     }
   }, []);
 
@@ -46,10 +50,6 @@ function Profile() {
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
     setUser(updatedUser);
-  };
-
-  const generateAvatar = (username) => {
-    return `https://api.dicebear.com/7.x/initials/svg?seed=${username}`;
   };
 
   const handleBioSave = () => {
@@ -104,7 +104,7 @@ function Profile() {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
-    navigate("/");
+    navigate("/login");
   }
 
 

@@ -191,7 +191,7 @@ function PersonalPage() {
 
       setUser(storedUser); // Set user state
     } else {
-      navigate("/"); // Redirect to login page if no user is found
+      navigate("/login"); // Redirect to login page if no user is found
     }
   }, []);
 
@@ -199,7 +199,7 @@ function PersonalPage() {
   const logOut = () => {
     try {
       localStorage.removeItem("loggedInUser");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }
@@ -2106,7 +2106,7 @@ const [openSection, setOpenSection] = useState(null);
                     >
                       <a 
                       className="hover:text-gray-900"
-                      onClick={() => navigate("/")}
+                      onClick={() => navigate("/login")}
                       href="">
                         Log Out
                       </a>

@@ -69,7 +69,7 @@ function Register() {
     existingUser.push(newUser);
     localStorage.setItem("users", JSON.stringify(existingUser));
     window.alert("Registration Successful!");
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -159,7 +159,7 @@ function Register() {
         group-hover:text-gray-200 text-green-50">
           Already have an account?{" "}
           <span
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/login")}
             className="text-blue-500 hover:text-blue-400 active:text-blue-300 cursor-pointer select-none hover:underline"
           >
             Login

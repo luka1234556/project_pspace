@@ -9,7 +9,7 @@ function App() {
   return(
     <HashRouter> {/* HashRouter Routes inside BrowserRouter and fine for github */}
       <Routes>
-        <Route path="/" element={<LogIn />} />
+        <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/personalPage" element={<PersonalPage />} />
         <Route path="/profile" element={<Profile />} />
