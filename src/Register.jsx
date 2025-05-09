@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaEye } from "react-icons/fa";
 import { LuEyeClosed } from "react-icons/lu";
 import { GiHadesSymbol } from "react-icons/gi";
+import { IoIosWarning } from "react-icons/io";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -69,25 +70,37 @@ function Register() {
     existingUser.push(newUser);
     localStorage.setItem("users", JSON.stringify(existingUser));
     window.alert("Registration Successful!");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
     <div 
-    className="min-h-screen flex justify-center items-center bg-gradient-to-b 
-    from-green-200 to-green-900 relative">
+    className="min-h-screen flex flex-col justify-center gap-5 
+    items-center bg-gradient-to-b from-green-200 to-green-900 relative">
       {/*Web Symbol */}
       <GiHadesSymbol
       className="absolute text-[37rem] z-1 text-green-200 opacity-20"
       />
 
+      <motion.div 
+      className="flex items-center gap-2 text-rose-500 select-none
+      border-1 border-rose-600 md:px-5 py-2 rounded-xl text-md opacity-90
+      md:text-lg justify-center px-2 md:w-[30rem] w-[20rem] relative top-[-1rem]">
+        <IoIosWarning 
+        className="text-3xl absolute top-[-2rem]"/>
+        <h1 className="">
+          Warning! As it's just a project, in phone number type any number combination.
+          no need to add real mobile number
+        </h1>
+      </motion.div>
+
       <motion.form
       initial={{ opacity: 0, y: 190 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
-      className="p-6 w-80 rounded-lg space-y-4 relative border
+      className="p-6 w-80 rounded-lg space-y-4 relative border md:mb-15
       border-white bg-gradient-to-b from-green-300 to-gray-900
-      register-shadow z-100 register-shadow group hover:to-gray-400"
+      register-shadow z-100 register-shadow group hover:to-gray-400 mb-5"
       onSubmit={handleRegister}
       >
         <motion.h2
@@ -99,6 +112,7 @@ function Register() {
         >
           Register
         </motion.h2>
+
         {error && (
           <p className="text-sm text-center text-red-500">{error}</p>
         )}
@@ -116,17 +130,19 @@ function Register() {
 
         <div className="relative w-full">
           <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={`w-full p-2 pr-10 border text-green-100 md:text-gray-700 group-hover:text-green-50 rounded
-            ${error ? "border-red-500" : "group-hover:border-green-100 md:border-green-800 border-green-100"}`}
+          type={showPassword ? "text" : "password"}
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={`w-full p-2 pr-10 border text-green-100 md:text-gray-700 group-hover:text-green-50 rounded
+          ${error ? "border-red-500" : "group-hover:border-green-100 md:border-green-800 border-green-100"}`}
           />
+
           <span
           onClick={() => setShowPassword(!showPassword)}
           className="absolute right-2 top-1/2 -translate-y-1/2 
-          cursor-pointer select-none group-hover:text-green-100 text-green-100 md:text-green-800"
+          cursor-pointer select-none group-hover:text-green-500 
+          text-green-100 md:text-green-800 hidden md:block"
           >
             {showPassword ? <FaEye /> : <LuEyeClosed />}
           </span>
@@ -159,7 +175,7 @@ function Register() {
         group-hover:text-gray-200 text-green-50">
           Already have an account?{" "}
           <span
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/")}
             className="text-blue-500 hover:text-blue-400 active:text-blue-300 cursor-pointer select-none hover:underline"
           >
             Login

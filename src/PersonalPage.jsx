@@ -89,36 +89,6 @@ import { IoMdMore, IoIosClose } from "react-icons/io";
 import { FaRegCheckCircle, FaLaptopCode, FaPaintBrush } from "react-icons/fa";
 import { BsPersonGear, BsLinkedin, BsInfoCircle } from "react-icons/bs";
 
-const Creators = [
-  {id:1, name: "Luka Kartvelishvili", status: "Front-End Developer",
-  age: 22, hobby: "Boxing", img: "/luka.jpg", 
-  role: "junior", experience:1},
-
-  {id:2, name: "Matiu Teit", status: "Back-End Developer", 
-  age: 21, hobby: "drawing", img: "/Matiu.jpg", 
-  role: "junior", experience:1},
-
-  {id:3, name: "Grace Henderson", status: "Front-end developer",
-  age: 27, hobby: "Dancing", img: "/Grace.png", 
-  role: "Senior", experience:7},
-
-  {id:4, name: "Mr. Chat-Gpt", status: "Full-stuck developer",
-  age: 40, hobby: "playing on piano", img: "/chat.png", 
-  role: "Senior", experience:10},
-
-  {id:5, name: "Temraz Kartvelishvili", status: "UI/UX designer", 
-  age: 19, hobby: "painting", img: "/temraz.jpg", 
-  role: "Middle", experience:2},
-
-  {id:6, name: "Ava Sullivan", status: "Back-end developer",
-  age: 35, hobby: "swimming", img: "/Ava.png", 
-  role: "Senior", experience:8},
-
-  {id:7, name: "Liam Cooper", status: "UI/UX designer", 
-  age: 35, hobby: "Gym", img: "/Liam.png", 
-  role: "Senior", experience:9},
-]
-
 /*------------------------------------------------------- */
 
 function PersonalPage() {
@@ -166,40 +136,11 @@ function PersonalPage() {
 
   /*Message help section */
   const [message, setMessage] = useState(false);
-  const [user, setUser] = useState(null); 
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("loggedInUser")); // Get user data from localStorage
-    const allUsers = JSON.parse(localStorage.getItem("users")) || []; // Get all users from localStorage
-
-    // If there's a logged-in user
-    if (storedUser) {
-      // If user doesn't have a profile picture, create a default one
-      if (!storedUser.profilePicture) {
-        const avatarUrl = generateAvatar(storedUser.username);
-        storedUser.profilePicture = avatarUrl;
-
-        // Update the list of users in localStorage with the new profile picture
-        const updatedUsers = allUsers.map((u) =>
-          u.username === storedUser.username
-            ? { ...u, profilePicture: avatarUrl } // Update the user's picture
-            : u
-        );
-
-        localStorage.setItem("users", JSON.stringify(updatedUsers)); // Save updated users list
-        localStorage.setItem("loggedInUser", JSON.stringify(storedUser)); // Save updated user
-      }
-
-      setUser(storedUser); // Set user state
-    } else {
-      navigate("/login"); // Redirect to login page if no user is found
-    }
-  }, []);
-
 
   const logOut = () => {
     try {
       localStorage.removeItem("loggedInUser");
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -207,6 +148,35 @@ function PersonalPage() {
 
   /*-------------------------- */
 /*-------SECTION 2 button TOOLS--------*/
+  const Creators = [
+  {id:1, name: "Luka Kartvelishvili", status: "Front-End Developer",
+  age: 22, hobby: "Boxing", image: "luka.jpg", 
+  role: "junior", experience:1},
+
+  {id:2, name: "Matiu Teit", status: "Back-End Developer", 
+  age: 21, hobby: "drawing", image: "Matiu.jpg", 
+  role: "junior", experience:1},
+
+  {id:3, name: "Grace Henderson", status: "Front-end developer",
+  age: 27, hobby: "Dancing", image: "Grace.png", 
+  role: "Senior", experience:7},
+
+  {id:4, name: "Mr. Chat-Gpt", status: "Full-stuck developer",
+  age: 40, hobby: "playing on piano", image: "chat.png", 
+  role: "Senior", experience:10},
+
+  {id:5, name: "Temraz Kartvelishvili", status: "UI/UX designer", 
+  age: 19, hobby: "painting", image: "temraz.jpg", 
+  role: "Middle", experience:2},
+
+  {id:6, name: "Ava Sullivan", status: "Back-end developer",
+  age: 35, hobby: "swimming", image: "Ava.png", 
+  role: "Senior", experience:8},
+
+  {id:7, name: "Liam Cooper", status: "UI/UX designer", 
+  age: 35, hobby: "Gym", image: "Liam.png", 
+  role: "Senior", experience:9},
+]
 
 const scrollRef2 = useRef(null);
 const [creatorInfo, setCreatorInfo] = useState(false);
@@ -381,41 +351,53 @@ const [openSection, setOpenSection] = useState(null);
           
           {/*input and navigations */}
             <div className="flex gap-5 items-center">
-
               <nav 
               className="flex">
                 <ul 
                 className="flex">
-                {[
-                  {id:1, text: "HOME", icon: <HiHome />, link: "#home" },
-                  {id:2, text: "CREATORS", icon: <IoPerson />, link: "#creators" },
-                  {id:3, text: "ABOUT", icon: <GrInfo />, link: "#about" },
-                  {id:4, text: "STARS", icon: <RiUserHeartLine />, link: "#Tops" },
-                  {id:5, text: "LASTLINE", icon: <TbArrowDownToArc />, link: "#lastline" },
-                  {id:6, text: "HELP", icon: <TbMessageChatbotFilled />, click:() => setMessage(true) },
-                  {id:7, text: "PROFILE", icon: <VscAccount />,  click:() => navigate("/Profile") }
-                ].map((nav) => (
-                  <li 
-                  key={`nav-${nav.id}`}
-                  className="group relative"
-                  > 
-                    <a 
-                    onClick={nav.click}
-                    href={nav.link} 
-                    className="flex items-center gap-2 group-hover:bg-gradient-to-b
-                    from-blue-300 to-blue-400 h-20 w-25 p-1 justify-center
-                    text-sm md:text-[15px] cursor-pointer">
-                      <h2 
-                      className="group-hover:scale-150 transition-all duration-200
-                      group-hover:text-blue-100 text-gray-600">
-                        {nav.icon}
-                      </h2>
-                      <h1
-                      className="group-hover:text-blue-100">
-                        {nav.text}
-                      </h1>
-                    </a>
-                  </li>
+                  {[
+                    { id: 1, text: "HOME", icon: <HiHome />, href: "#home" },
+                    { id: 2, text: "CREATORS", icon: <IoPerson />, href: "#creators" },
+                    { id: 3, text: "ABOUT", icon: <GrInfo />, href: "#about" },
+                    { id: 4, text: "STARS", icon: <RiUserHeartLine />, href: "#Tops" },
+                    { id: 5, text: "LASTLINE", icon: <TbArrowDownToArc />, href: "#lastline" },
+                    { id: 6, text: "HELP", icon: <TbMessageChatbotFilled />, action: () => setMessage(true) },
+                    { id: 7, text: "PROFILE", icon: <VscAccount />, action: () => navigate("/Profile") },
+                  ].map((nav) => (
+                    <li key={nav.id} className="group relative">
+                      {nav.href ? (
+                        <a
+                        onClick={() => {
+                          const id = nav.href.slice(1); // removes the '#'
+                          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                        className="flex items-center gap-2 group-hover:bg-gradient-to-b
+                      from-blue-300 to-blue-400 h-20 w-25 p-1 justify-center
+                        text-sm md:text-[15px] cursor-pointer">
+                          <h2 className="group-hover:scale-150 transition-all duration-200
+                          group-hover:text-blue-100 text-gray-600">
+                            {nav.icon}
+                          </h2>
+                          <h1 className="group-hover:text-blue-100">
+                            {nav.text}
+                          </h1>
+                        </a>
+                      ) : (
+                        <button
+                          onClick={nav.action}
+                          className="flex items-center gap-2 group-hover:bg-gradient-to-b
+                            from-blue-300 to-blue-400 h-20 w-25 p-1 justify-center
+                            text-sm md:text-[15px] cursor-pointer">
+                          <h2 className="group-hover:scale-150 transition-all duration-200
+                              group-hover:text-blue-100 text-gray-600">
+                            {nav.icon}
+                          </h2>
+                          <h1 className="group-hover:text-blue-100">
+                            {nav.text}
+                          </h1>
+                        </button>
+                      )}
+                    </li>
                   ))}
                 </ul>
               </nav>
@@ -423,8 +405,8 @@ const [openSection, setOpenSection] = useState(null);
               <div className="relative group">
                 <input
                 onFocus={() => {
-                  setShowSuggestions(false);
-                  setIsSearchActive(true)
+                setShowSuggestions(false);
+                setIsSearchActive(true);
                 }}
                 onChange={(event) => setHeaderInput(event.target.value)}
                 placeholder="What're you looking for today?"
@@ -474,7 +456,7 @@ const [openSection, setOpenSection] = useState(null);
               {num:8, text: "Top PSpace Creators", icon: <FiSearch />}
               ].map((item) => 
                 <p 
-                key={`suggestion-${item.num}`}   // <-- prefix is important!!
+                key={item.num}   // <-- prefix is important!!
                 onClick={() => setHeaderInput(item.text)}
                 className="hover:bg-gradient-to-r from-blue-300 to-blue-400
                 cursor-pointer py-2 p-2 rounded-xl hover:text-blue-100 transition-all
@@ -566,41 +548,55 @@ const [openSection, setOpenSection] = useState(null);
           transition={{ duration: 0.5 }}      // Smooth timing
           className="hidden md:block fixed top-1/2 left-0 -translate-y-1/2 z-20"
           > 
-            <ul 
-            className="flex flex-col gap-4">
+            <ul className="flex flex-col gap-4">
               {[
-                {id:1, text: "HOME", icon: <HiHome />, link: "#home" },
-                {id:2, text: "CREATORS", icon: <IoPerson />, link: "#creators" },
-                {id:3, text: "ABOUT", icon: <GrInfo />, link: "#about" },
-                {id:4, text: "STARS", icon: <RiUserHeartLine />, link: "#Tops" },
-                {id:5, text: "LASTLINE", icon: <TbArrowDownToArc />, link: "#lastline" },
-                {id:6, text: "HELP", icon: <TbMessageChatbotFilled />, click:() => setMessage(true) },
-                {id:7, text: "PROFILE", icon: <VscAccount />, click: () => navigate("/Profile")  }
+                { id: 1, text: "HOME", icon: <HiHome />, link: "#home" },
+                { id: 2, text: "CREATORS", icon: <IoPerson />, link: "#creators" },
+                { id: 3, text: "ABOUT", icon: <GrInfo />, link: "#about" },
+                { id: 4, text: "STARS", icon: <RiUserHeartLine />, link: "#Tops" },
+                { id: 5, text: "LASTLINE", icon: <TbArrowDownToArc />, link: "#lastline" },
+                { id: 6, text: "HELP", icon: <TbMessageChatbotFilled />, click: () => setMessage(true) },
+                { id: 7, text: "PROFILE", icon: <VscAccount />, click: () => navigate("/Profile") }
               ].map((navs) => (
-                <li 
-                key={`nav-${navs.id}`}
-                className="flex items-center gap-2">
-                  
-                  <a 
-                  onClick={navs.click}
-                  href={navs.link} 
-                  className="flex items-center gap-2 bg-gradient-to-r group
-                from-blue-300 to-blue-200 p-2 cursor-pointer h-[3.5rem]
-                  rounded-tr-4xl rounded-br-4xl border border-blue-300
-                  transition-all duration-300 hover:shadow-lg">
-                    <h1
-                    className="transition-all w-0 opacity-0 group-hover:w-auto 
-                    group-hover:opacity-100 text-blue-100">
-                      {navs.text}
-                    </h1>
-                    
-                    <h2 
-                    className="transition-transform text-blue-500 pr-2
-                    group-hover:text-blue-100 group-hover:scale-110">
-                      {navs.icon}
-                    </h2>
-                    
-                  </a>
+                <li key={navs.id} className="flex items-center gap-2">
+                  {navs.link ? (
+                    <a
+                    onClick={() => {
+                      const id = navs.link.slice(1); // removes the '#'
+                      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="flex items-center gap-2 bg-gradient-to-r group
+                  from-blue-300 to-blue-200 p-2 cursor-pointer h-[3.5rem]
+                    rounded-tr-4xl rounded-br-4xl border border-blue-300
+                    transition-all duration-300 hover:shadow-lg"
+                    >
+                      <h1 className="transition-all w-0 opacity-0 group-hover:w-auto 
+                        group-hover:opacity-100 text-blue-100">
+                        {navs.text}
+                      </h1>
+                      <h2 className="transition-transform text-blue-500 pr-2
+                        group-hover:text-blue-100 group-hover:scale-110">
+                        {navs.icon}
+                      </h2>
+                    </a>
+                  ) : (
+                    <button
+                      onClick={navs.click}
+                      className="flex items-center gap-2 bg-gradient-to-r group
+                      from-blue-300 to-blue-200 p-2 cursor-pointer h-[3.5rem]
+                      rounded-tr-4xl rounded-br-4xl border border-blue-300
+                      transition-all duration-300 hover:shadow-lg"
+                    >
+                      <h1 className="transition-all w-0 opacity-0 group-hover:w-auto 
+                        group-hover:opacity-100 text-blue-100">
+                        {navs.text}
+                      </h1>
+                      <h2 className="transition-transform text-blue-500 pr-2
+                        group-hover:text-blue-100 group-hover:scale-110">
+                        {navs.icon}
+                      </h2>
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -629,56 +625,53 @@ const [openSection, setOpenSection] = useState(null);
             <ul 
             className="flex gap-10 z-20 mr-10 text-3xl h-20 
             items-center w-[25rem] justify-evenly">
+            
               <li>
                 <a
-                onClick={() => setActiveIcon("home")}
+                onClick={() => {
+                  document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
+                }}
                 className={`flex items-center gap-1 transition-all duration-200 
                 ${activeIcon === "home"
                 ? "text-blue-50 font-bold scale-120"
                 : "text-gray-700"}`}
-                href="#home"
                 >
                   <HiHome />
                 </a>
               </li>
 
               <li>
-                <a
-                onClick={() => setActiveIcon("lastline")}
-                className={`flex items-center gap-1 transition-all duration-200
-                ${activeIcon === "lastline"
-                ? "text-blue-100 font-bold scale-120"
-                : "text-gray-700"}`} 
-                href="#lastline"
-                >
+                <button
+                onClick={() => {
+                  document.getElementById("lastline")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="flex items-center gap-1 transition-all duration-200">
                   <TbArrowDownToArc />
-                </a>
+                </button>
               </li>
 
               <li>
-                <a
+                <button
+                onClick={() => setMessage(true)}
                 className={`flex items-center gap-1 transition-all duration-200
                 ${activeIcon === "HELP"
                 ? "text-blue-100 font-bold scale-120"
                 : "text-gray-700"}`}  
-                onClick={() => setMessage(true)}
-                href="#HELP"
                 >
-                 <LuMessageCircleWarning />
-                </a>
+                <LuMessageCircleWarning />
+                </button>
               </li>
 
               <li>
-                <a
+                <button
                 onClick={() => navigate("/Profile")}
                 className={`flex items-center gap-1 transition-all duration-200
                 ${activeIcon === "account"
                 ? "text-blue-100 font-bold scale-120"
                 : "text-gray-700"}`}
-                href="#account"
                 >
                   <VscAccount />
-                </a>
+                </button>
               </li>
             </ul>
           </motion.header>
@@ -696,9 +689,6 @@ const [openSection, setOpenSection] = useState(null);
       className="absolute text-[30rem] z-1 top-20 left-[-5rem]
       text-gray-900 opacity-30"/>
 
-      <div className="absolute bottom-25 w-full h-[1px] bg-blue-500
-      right-0"/>
-
       {/* Content container */}
       <div className="relative">
         <h1
@@ -708,7 +698,6 @@ const [openSection, setOpenSection] = useState(null);
           <GiHadesSymbol />
         </h1>
 
-      {/* Triangle background behind h1 */}
         <p 
         className="font-semibold text-gray-600 text-3xl ml-5 z-100 
         relative">
@@ -858,7 +847,7 @@ const [openSection, setOpenSection] = useState(null);
           </h2>
 
           <span 
-            className="hidden md:flex items-center gap-5">
+            className="hidden sm:flex items-center gap-5">
             <button 
               onClick={scrollLeft2} 
               className="group bg-white/70 backdrop-blur-md text-gray-800 px-4 py-3 text-2xl 
@@ -891,14 +880,14 @@ const [openSection, setOpenSection] = useState(null);
             h-auto md:min-w-[350px] min-w-[10rem] w-full
             md:h-[30rem] group border-2 border-blue-200
             max-w-[250px] flex-shrink-0 rounded-lg relative"
-            key={`creators_list-${creator.id}`}
+            key={creator.id}
             >
               <img 
-              src={creator.img}
-              alt="Creators-list" 
-              className="object-cover md:h-[30rem] h-[20rem] w-full
-              md:opacity-60 group-hover:opacity-90 group-hover:scale-120
-              transition-all duration-300"
+              className="object-cover h-full w-[15.5rem] md:w-[22rem] transform 
+              transition-transform duration-300 group-hover:scale-110
+              group-hover:opacity-100 opacity-80"
+              src={creator?.image || fallbackImage} 
+              alt={creator?.name || "Person"} 
               />
               
               <div
@@ -921,7 +910,6 @@ const [openSection, setOpenSection] = useState(null);
               <div 
               className="absolute top-3 left-3 md:left-[17.9rem] md:right-5 z-50 flex flex-col 
               gap-1 md:gap-2 bg-white/30 rounded-full">
-
                 <button
                 onClick={() => {
                 setCreatorInfo2(false);
@@ -1343,7 +1331,7 @@ const [openSection, setOpenSection] = useState(null);
                 initial={{opacity: 0, y:0}}
                 animate={isInView2 ? {opacity: 1, y:0} : {}}
                 transition={{duration: 1, delay: 1.5}}
-                className="z-100 text-[1.3rem] text-blue-50">
+                className="z-100 text-[1.3rem] text-blue-300">
                   <li
                   className="bottom-0 right-40 absolute"><GiPolarStar />
                   </li>
@@ -1423,14 +1411,14 @@ const [openSection, setOpenSection] = useState(null);
               className="w-full h-full flex flex-col justify-around z-10">
                 {/* 1 */}
                 <li
-                style={{position: "absolute", left: '37.7rem', top: "2rem" }}>
+                style={{position: "absolute", left: '37.2rem', top: "2rem" }}>
                   <div className="flex flex-row items-center gap-2">
                     <p 
-                    className="text-lg text-gray-800 font-semibold">
+                    className="text-lg text-gray-600 font-semibold">
                       Dec 2024
                     </p>
                     <div 
-                    className="w-4 h-4 bg-blue-500 rounded-full shadow-lg border-1
+                    className="w-6 h-6 bg-blue-500 rounded-full shadow-lg border-1
                     hover:bg-blue-200 transition-all duration-300 circle_light 
                     hover:border-gray-100 cursor-pointer hover:scale-140 group" 
                     />
@@ -1440,11 +1428,11 @@ const [openSection, setOpenSection] = useState(null);
 
                 {/* 2 */}
                 <li 
-                style={{position: "absolute", left: '17rem', top: "8rem" }}>
+                style={{position: "absolute", left: '16rem', top: "8rem" }}>
                   <div className="flex flex-row-reverse items-center gap-2">
                     <p className="text-lg text-gray-300 font-semibold">Feb 2025</p>
                     <div 
-                    className="w-4 h-4 bg-blue-500 rounded-full shadow-lg border-1
+                    className="w-6 h-6 bg-blue-500 rounded-full shadow-lg border-1
                     hover:bg-blue-200 transition-all duration-300 circle_light
                     hover:border-gray-100 cursor-pointer hover:scale-140" 
                     />
@@ -1454,11 +1442,11 @@ const [openSection, setOpenSection] = useState(null);
 
                 {/* 3 */}
                 <li
-                style={{position: "absolute", left: '28rem', top: "16.7rem" }}>
+                style={{position: "absolute", left: '27.5rem', top: "16.7rem" }}>
                   <div className="flex flex-row items-center gap-2">
-                    <p className="text-lg text-gray-800 font-semibold">Mar 2025</p>
+                    <p className="text-lg text-gray-600 font-semibold">Mar 2025</p>
                     <div 
-                    className="w-4 h-4 bg-blue-500 rounded-full shadow-lg border-1
+                    className="w-6 h-6 bg-blue-500 rounded-full shadow-lg border-1
                     hover:bg-gradient-to-br from-blue-300 to-gray-300 transition-all duration-300 circle_light 
                     hover:border-gray-100 cursor-pointer hover:scale-140" 
                     />
@@ -1468,11 +1456,11 @@ const [openSection, setOpenSection] = useState(null);
 
                 {/* 4 */}
                 <li
-                style={{position: "absolute", left: '30.2rem', top: "19rem" }}>
+                style={{position: "absolute", left: '29.7rem', top: "19rem" }}>
                   <div className="flex flex-row-reverse items-center gap-2">
                     <p className="text-lg text-gray-300 font-semibold">Apr 2025</p>
                     <div 
-                    className="w-4 h-4 bg-blue-500 rounded-full shadow-lg border-1
+                    className="w-6 h-6 bg-blue-500 rounded-full shadow-lg border-1
                   hover:bg-blue-200 transition-all duration-300 circle_light
                     hover:border-gray-100 cursor-pointer hover:scale-140" 
                     />
@@ -1482,11 +1470,11 @@ const [openSection, setOpenSection] = useState(null);
 
                 {/* 5 */}
                 <li
-                style={{position: "absolute", left: '33.5rem', top: "24rem" }}>
+                style={{position: "absolute", left: '33rem', top: "24rem" }}>
                   <div className="flex flex-row items-center gap-2">
-                    <p className="text-lg text-gray-900 font-semibold">May 2025</p>
+                    <p className="text-lg text-gray-600 font-semibold">May 2025</p>
                     <div 
-                    className="w-4 h-4 bg-blue-500 rounded-full shadow-lg border-1
+                    className="w-6 h-6 bg-blue-500 rounded-full shadow-lg border-1
                     hover:bg-blue-200 transition-all duration-300 circle_light
                     hover:border-gray-100 cursor-pointer hover:scale-140" 
                     />
@@ -1496,13 +1484,13 @@ const [openSection, setOpenSection] = useState(null);
 
                 {/* 6 */}
                 <li 
-                style={{position: "absolute", left: '23rem', top: "28rem" }}>
+                style={{position: "absolute", left: '22rem', top: "28rem" }}>
                   <div className="flex flex-row-reverse items-center gap-2">
                     <p className="text-lg text-gray-300 font-semibold">
                       Mai 2025
                     </p>
                     <div 
-                    className="w-4 h-4 bg-blue-500 rounded-full shadow-lg border-1
+                    className="w-6 h-6 bg-blue-500 rounded-full shadow-lg border-1
                     hover:bg-gradient-to-br from-blue-200 to-gray-300 transition-all duration-300 circle_light
                     hover:border-gray-100 cursor-pointer hover:scale-140"
                     />
@@ -1697,10 +1685,10 @@ const [openSection, setOpenSection] = useState(null);
         className="scroll-indicators flex items-center justify-center">
           {Array.from({ length: totalSlides }).map((_, i) => (
             <div
-              key={i}
-              className={`dot ${i === activeIndex ? "active" : ""}`}
-              onClick={() => scrollToSlide(i)}
-              />
+            key={i}
+            className={`dot ${i === activeIndex ? "active" : ""}`}
+            onClick={() => scrollToSlide(i)}
+            />
             ))}
         </div>
       </section>
@@ -1837,7 +1825,7 @@ const [openSection, setOpenSection] = useState(null);
         className="mt-8 space-y-6">
           <div 
           className="p-5 bg-gradient-to-br from-violet-100 to-white 
-          rounded-2xl shadow-lg">
+          rounded-2xl shadow-lg h-[17rem]">
             <h1 
             className="text-lg font-bold text-indigo-700 mb-3
             flex items-center gap-2">
@@ -1847,7 +1835,7 @@ const [openSection, setOpenSection] = useState(null);
 
             <ul 
             className="list-disc list-inside text-blue-500 
-            space-y-1 grid grid-cols-2">
+            space-y-2 grid grid-cols-1">
               {["job/Hire System",
                 "More Flexible web",
                 "Payment methods", 
@@ -1870,7 +1858,7 @@ const [openSection, setOpenSection] = useState(null);
             </h1>
 
             <div 
-            className="grid grid-cols-2 flex-wrap gap-4">
+            className="grid grid-cols-2 flex-wrap gap-1">
 
               {[{id:1, href: "https://react-icons.github.io/react-icons/", 
                  icon: <FaReact/>, text: "React-Icons"},   
@@ -1895,7 +1883,7 @@ const [openSection, setOpenSection] = useState(null);
                 target="_blank"
                 href={link.href}
                 className={`flex items-center gap-1 pl-3 rounded-full p-1
-                hover:text-gray-800 transition-colors border w-50  
+                hover:text-gray-800 transition-colors border w-40  
 
                 ${link.id === 1 
                 ? "bg-gradient-to-r from-rose-200 to-red-300 text-rose-500 border-rose-500" 
@@ -1932,13 +1920,14 @@ const [openSection, setOpenSection] = useState(null);
 {/*------------------------SECTION FOUR------------------------*/}
       <section 
       id="Tops"
-      className="px-1 py-12 mb-20 md:h-[40rem] md:w-[50rem] scroll-mt-10
-      w-[33rem] h-[25rem] lg:w-[83rem] lg:h-[42rem]">
-        <div className="flex justify-between items-center pb-10">
+      className="px-12 py-12 mb-20 md:h-[40rem] md:w-[50rem] scroll-mt-10
+      w-[33rem] h-[25rem] lg:w-[88rem] lg:h-[42rem]">
+        <div 
+        className="flex justify-between items-center pb-10">
           <h2 
-          className="text-xl md:text-4xl font-bold md:mb-10 text-gray-600 flex 
-          items-center gap-2">
-            <RiUserHeartLine />
+          className="text-lg md:text-4xl font-bold md:mb-10 text-gray-600 flex 
+          gap-2 ml-8 md:ml-0">
+            <RiUserHeartLine className="mt-1" />
             Top Rated Members
           </h2>
 
@@ -1968,26 +1957,26 @@ const [openSection, setOpenSection] = useState(null);
 
         {/* Scrollable wrapper */}
         <div 
-        className="relative overflow-hidden">
+        className="relative">
           <div
           ref={scrollRef4}
-          className="flex overflow-x-auto md:gap-2.5 scroll-smooth scrollbar-hide
-          no-scrollbar space-x-1 p-2"
+          className="flex overflow-x-auto md:gap-3 scroll-smooth scrollbar-hide
+          no-scrollbar w-[27rem] px-7 md:px-0 md:w-full"
           >
             {users.map((user) => (
               <div
               key={user.id}
-              className="md:min-w-[19rem] md:max-w-[30rem] h-[20rem] md:h-[30rem]
-              min-w-[10rem] max-w-[15rem] member-shadow
+              className="md:min-w-[18rem] md:max-w-[24rem] h-[20rem] md:h-[30rem]
+              min-w-[12rem] max-w-[20rem] member-shadow mr-1
               p-[1px] rounded-sm shadow-md flex-shrink-0 bg-gradient-to-b
               from-blue-500 via-gray-400 to-indigo-100 relative group"
               >
                 <div
                 className="overflow-hidden w-full h-full rounded-md 
-                bg-black md:member-shadow"
+                bg-gradient-to-b from-black/70 to-black md:member-shadow"
                 >
                   <img 
-                  className="object-cover h-full w-[15rem] md:w-[19.5rem] transform 
+                  className="object-cover h-full w-[15.5rem] md:w-[19.5rem] transform 
                   transition-transform duration-300 group-hover:scale-110
                   group-hover:opacity-100 opacity-80"
                   src={user?.image || fallbackImage} 
@@ -2030,8 +2019,8 @@ const [openSection, setOpenSection] = useState(null);
                   md:opacity-0 md:group-hover:opacity-100 mt-2">
                     <GiHadesSymbol className="text-blue-400" />
                     <a
+                    href={`${user.name}`}
                     title={`${user.name}'s page`}
-                    href="#"
                     className="text-xs md:text-md lg:text-lg hover:underline
                     hover:text-blue-400 transition-all"
                     >
@@ -2106,7 +2095,7 @@ const [openSection, setOpenSection] = useState(null);
                     >
                       <a 
                       className="hover:text-gray-900"
-                      onClick={() => navigate("/login")}
+                      onClick={() => navigate("/")}
                       href="">
                         Log Out
                       </a>

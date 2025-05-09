@@ -6,7 +6,7 @@ import { CgAddR, CgRemoveR } from "react-icons/cg";
 import { BiSolidImageAdd } from "react-icons/bi";
 import { TbSettings } from "react-icons/tb";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { CiLogout } from "react-icons/ci";
+import { CiLogout, CiCircleRemove } from "react-icons/ci";
 import { GoMoon } from "react-icons/go";
 import { PiUserSwitchLight } from "react-icons/pi";
 
@@ -38,7 +38,7 @@ function Profile() {
       setUser(storedUser);
       setBioText(storedUser.bio || "");
     } else {
-      navigate("/login");
+      navigate("/");
     }
   }, []);
 
@@ -104,15 +104,13 @@ function Profile() {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
-    navigate("/login");
+    navigate("/");
   }
-
 
   return (
     <div 
     className="min-h-screen bg-gradient-to-b px-4 py-6 flex gap-5
-    flex-row items-center from-blue-100 to-blue-200 dark:from-gray-900 
-    dark:to-black">
+    flex-row items-center from-blue-100 to-blue-200">
 
 {/*--Aside Buttons-----------------------------------------*/}
       <aside 
@@ -220,12 +218,12 @@ function Profile() {
 {/*--------------------------------------------------------------*/}
 
       <div className="w-[65rem]">
-        {/* Back Button */}
+      {/* Back Button */}
         <div 
         className="w-full max-w-5xl mb-4 md:hidden">
           <button
           onClick={() => navigate("/personalPage")}
-          className="flex items-center gap-1 text-gray-500
+          className="flex items-center gap-1 text-blue-400 md:text-gray-500
           hover:text-blue-500 cursor-pointer hover:scale-110
           transition-all duration-200"
           >
@@ -233,106 +231,97 @@ function Profile() {
             Go Back
           </button>
         </div>
-            {/* Profile Info */}
-        <div 
-        className="flex-1/2 md:flex items-start gap-5 bg-gradient-to-t 
-        shadow-md p-7 rounded-xl w-full max-w-5xl from-blue-50
-      to-white border-1 border-gray-300">
 
-          <div className="flex items-start">
+        {/* Profile Info */}
+        <div 
+        className="flex-1/2 md:flex gap-5 bg-gradient-to-t 
+        shadow-md p-6 rounded-xl w-full max-w-5xl from-blue-50
+      to-white border-1 border-gray-300">
+          <div 
+          className="flex md:border-r-1 border-gray-300">
             <img
             src={user.profilePicture}
             alt="Profile"
-            className="w-35 h-35 md:w-45 md:h-45 rounded-full border-2  
-            object-cover relative p-1 border-gray-400"
+            className="md:w-[11rem] md:h-[11rem] aspect-square object-cover rounded-[4rem]
+            border-2 p-1 border-gray-400 w-[8rem] h-[8rem]"
             />
 
             {/* Bio Section */}
-            <div className="relative">
+            <div>
               {bioInputVisible ? (
                 <div 
-                className="flex flex-col gap-2">
+                className="flex flex-col items-start gap-3 relative">
                   <textarea
+                  placeholder="Add Your Bio Text"
                   value={bioText}
                   maxLength={100}
                   onChange={(e) => setBioText(e.target.value)}
-                  className="border border-gray-500 p-2 min-h-[7rem]
-                  max-h-[7rem] text-gray-700 md:w-[50rem] h-[12rem]
-                  rounded-md w-[19rem] absolute z-100 md:max-h-[12rem]
-                  md:min-h-[12rem] md:text-2xl
-                  bg-gradient-to-t from-blue-50 to-gray-100"
-                  placeholder="Write your bio"
+                  className="z-20 md:min-w-[50rem] md:max-w-[50rem] bg-gradient-to-b shadow-lg
+                  min-w-[24rem] max-w-full md:min-h-[25rem] md:max-h-[25rem]
+                  text-2xl p-3 text-sky-700 rounded-3xl border-2 border-sky-200
+                  shadow-blue-100 font-mono absolute md:right-[-33rem]
+                  left-[-10.5rem]
+                  min-h-[16rem] max-h-[16rem] from-blue-100 to-sky-50" 
                   />
 
-                  <div className="z-100">
+                  <div 
+                  className="flex gap-3 z-20 absolute md:top-[20rem] md:left-[20rem]
+                  left-[-1rem] top-[12rem] w-[20rem]">
                     <button
                     onClick={handleBioSave}
-                    className="bg-gray-300 hover:bg-blue-400 mt-30 md:mt-[9.5rem]
-                    text-sm px-3 py-1 rounded-md text-gray-800 cursor-pointer
-                    transition-color duration-200 hover:text-blue-50 ml-2
-                    hover:scale-110"
+                    className="bg-gradient-to-b from-blue-100 to-sky-200 hover:bg-blue-400
+                  text-gray-800 text-sm md:px-10 px-5 py-3 rounded-md transition-all
+                  hover:text-white hover:scale-105 cursor-pointer"
                     >
                       Save Bio
                     </button>
 
                     <button
-                    onClick={() => setBioText("")}
-                    className="bg-gray-300 hover:bg-blue-400 mt-30 md:mt-[9.5rem]
-                    text-sm px-3 py-1 rounded-md text-gray-800 cursor-pointer
-                    transition-color duration-200 hover:text-blue-50 ml-2
-                    hover:scale-110"
+                      onClick={() => setBioText("")}
+                      className="bg-gradient-to-b from-blue-100 to-sky-200 hover:bg-red-400
+                      text-gray-800 text-sm md:px-10 px-5 py-3 rounded-md transition-all
+                      hover:text-white hover:scale-105 cursor-pointer"
                     >
                       Delete Bio
                     </button>
                   </div>
                 </div>
-                ) : (
-                <div 
-                className="flex h-17 gap-4 absolute left-[0.5rem]">
-                {/*Buttons for mobile screen */}
-                  <div 
-                  className="flex md:hidden gap-2 mt-5">
-                    <button
-                    onClick={() => addPicInputRef.current.click()}
-                    className="flex items-center gap-1 p-7 py-2
-                  bg-gray-100 hover:bg-blue-300 rounded-md hover:border-sky-400
-                    cursor-pointer hover:text-blue-50 transition-all active:text-blue-900
-                    hover:scale-105 group border-gray-400 border duration-300"
-                    >
-                      Change Profile
-                    </button>
-
-                    <button
-                    onClick={handleRemovePicture}
-                    className="flex items-center gap-1 px-6 py-2 
-                  bg-gray-100 hover:bg-blue-300 rounded-md hover:border-sky-400
-                    cursor-pointer hover:text-blue-50 transition-all active:text-blue-900
-                    hover:scale-105 group border-gray-400 border duration-300"
-                    >
-                      Remove Profile
-                    </button>
-
-                    <button
-                    onClick={() => setBioInputVisible(true)}
-                    className="flex items-center gap-1 px-7 py-2 top-10
-                  bg-gray-100 hover:bg-blue-300 rounded-md hover:border-sky-400
-                    cursor-pointer hover:text-blue-50 transition-all active:text-blue-900
-                    hover:scale-105 group border-gray-400 border duration-300"
-                    >
-                      {user.bio ? "Edit Bio" : "Add Bio"}
-                    </button>
+              ) : (
+                <div className="flex ml-3">
+                  <div className="flex md:hidden gap-2 flex-col w-40">
+                    {[{ id: 1, text: "Update Profile", click: () => addPicInputRef.current.click() },
+                      { id: 2, text: "Delete Profile", click: handleRemovePicture },
+                      { id: 3, text: `${user.bio ? "Edit Bio" : "Add Bio"}`, click: () => setBioInputVisible(true) }
+                    ].map((buttons) => (
+                      <button
+                      onClick={buttons.click}
+                      key={buttons.id}
+                      className="flex items-center justify-center bg-gradient-to-b
+                    from-blue-200 to-sky-200 text-gray-600 rounded-xl border
+                    border-gray-400 px-4 py-1 active:bg-gradient-to-t"
+                      >
+                        {buttons.text}
+                      </button>
+                    ))}
                   </div>
                 </div>
-                )}
-              </div>
+              )}
+            </div>
           </div>
+            
+          {/*For Bio dark background*/}
+          {bioInputVisible && (
+            <div
+            onClick={() => setBioInputVisible(false)} 
+            className="inset-0 bio-bg opacity-80 fixed z-10"/>
+          )}
 
           <div 
           className="flex-1/2 md:flex-col gap-3 mt-5">
               <div className="md:flex gap-2">
                 <h1 
                 className="text-2xl text-gray-600 md:text-3xl">
-                    {user.username}
+                  {user.username}
                 </h1>
                 
                 <button
@@ -347,7 +336,7 @@ function Profile() {
               </div>
               
               <div 
-              className="flex gap-5 items-center mt-3 mb-2">
+              className="flex gap-5 items-center mt-3 mb-5">
                 {[{text:"posts", number: tempPosts.length}, 
                   {text:"Followers", number: 0}, 
                   {text:"Friends", number: 0}].map((stats, index) => (
@@ -370,8 +359,8 @@ function Profile() {
 
               <p 
               className="text-gray-500 break-words whitespace-pre-wrap 
-              max-w-md w-full md:w-[400px] bg-gradient-to-b p-1 rounded-md
-            from-sky-50 to-blue-50 border border-gray-400">
+              max-w-sm w-full md:w-[400px] bg-gradient-to-b p-1 rounded-md
+            from-sky-50 to-blue-50 border border-gray-400 overflow-hidden">
                 {user.bio || "Bio Text"}
               </p>
             </div>
@@ -411,12 +400,12 @@ function Profile() {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-3 md:grid-cols-3 gap-2 w-full">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-0.5 w-full px-1">
                 {tempPosts.map((post, idx) => (
                   <div
-                    key={idx}
-                    className="relative bg-gradient-to-t from-black 
-                    to-black/80 overflow-hidden rounded-md"
+                  key={idx}
+                  className="relative bg-gradient-to-t from-black 
+                to-black/80 overflow-hidden rounded-md w-full group"
                   >
                     <img
                     src={post}
@@ -425,14 +414,16 @@ function Profile() {
                     border opacity-70 hover:opacity-100 hover:scale-105
                     transition-all duration-200 rounded-md"
                     />
+
                     <button
                     onClick={() => handleRemovePost(idx)}
-                    className="absolute top-1 right-1 bg-white hover:text-rose-500 
-                    rounded-full p-1 shadow w-8 h-8 cursor-pointer border hover:border-red-500
-                    text-xs hover:text-md border-gray-500 text-gray-500"
+                    className="absolute top-1 right-1 hover:text-rose-500 
+                    shadow cursor-pointer hover:border-red-500 p-1
+                  md:text-gray-500 text-white rounded-full group-hover:bg-gray-200"
                     title="Remove"
                     >
-                      ✕
+                      <CiCircleRemove 
+                      className="text-3xl group-hover:scale-110 transition-all duration-200"/>
                     </button>
                   </div>
                 ))}

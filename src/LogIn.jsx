@@ -88,10 +88,11 @@ function Login(){
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           />
+
           <span
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute text-blue-100 md:text-gray-700 group-hover:text-blue-50 
-          -translate-y-1/2 top-1/2 right-2 select-none cursor-pointer">
+          className="absolute md:block text-blue-100 md:text-gray-700 group-hover:text-blue-500 
+          -translate-y-1/2 top-1/2 right-2 select-none cursor-pointer hidden">
             {showPassword ? <FaEye /> : <LuEyeClosed/>}
           </span>
         </div>

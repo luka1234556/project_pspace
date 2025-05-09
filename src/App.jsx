@@ -9,11 +9,11 @@ function App() {
   return(
     <HashRouter> {/* HashRouter Routes inside BrowserRouter and fine for github */}
       <Routes>
-        <Route path="/login" element={<LogIn />} />
+        <Route path="/" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/personalPage" element={<PersonalPage />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="*" element={<div className="text-white text-center mt-10">404 - Page Not Found</div>} />
+        <Route path="*" element={<div className="text-red-900 text-center mt-10">404 - Page Not Found</div>} />
       </Routes>
     </HashRouter>
   )
