@@ -72,8 +72,8 @@ Please change the parent <Route path="${U}"> to <Route path="${U==="/"?"*":`${U}
       hover:to-gray-400 group`,initial:{opacity:0,y:210},animate:{opacity:1,y:0},transition:{duration:1},children:[h.jsx(At.h1,{className:`text-center group-hover:text-blue-100 pb-2 text-2xl \r
         font-mono md:text-blue-900 text-blue-500`,initial:{opacity:0,y:10},animate:{opacity:1,y:0},transition:{duration:.5,delay:.5},children:"Login"}),d&&h.jsx("p",{className:"text-sm text-center text-red-500",children:"Invalid username or password"}),h.jsx("input",{type:"text",placeholder:"Username",className:`border rounded p-2 w-full text-blue-100 md:text-gray-700 group-hover:text-blue-50
         ${d?"border-red-500":"group-hover:border-blue-100 border-blue-100 md:border-gray-600"}`,value:n,onChange:v=>i(v.target.value)}),h.jsxs("div",{className:"relative group",children:[h.jsx("input",{type:c?"text":"password",placeholder:"Password",className:`border rounded p-2 w-full text-blue-100 md:text-gray-700 group-hover:text-blue-50
-          ${d?"border-red-500":"group-hover:border-blue-100 border-blue-100 md:border-gray-600"}`,value:r,onChange:v=>s(v.target.value)}),h.jsx("span",{onClick:()=>f(!c),className:`absolute md:block text-blue-100 md:text-gray-700 group-hover:text-blue-500 \r
-          -translate-y-1/2 top-1/2 right-2 select-none cursor-pointer hidden`,children:c?h.jsx(w4,{}):h.jsx(T4,{})})]}),h.jsx("button",{type:"submit",className:`button-shadow bg-gradient-to-b from-gray-500 \r
+          ${d?"border-red-500":"group-hover:border-blue-100 border-blue-100 md:border-gray-600"}`,value:r,onChange:v=>s(v.target.value)}),h.jsx("span",{onClick:()=>f(!c),className:`absolute text-blue-100 md:text-gray-700 group-hover:text-blue-500 \r
+          -translate-y-1/2 top-1/2 right-2 select-none cursor-pointer`,children:c?h.jsx(w4,{}):h.jsx(T4,{})})]}),h.jsx("button",{type:"submit",className:`button-shadow bg-gradient-to-b from-gray-500 \r
       to-gray-700 button-saber-outer active:bg-gradient-to-tl\r
         hover:text-blue-400 transition-all duration-300 border-1\r
         cursor-pointer text-white rounded-xl text-center w-full p-2\r
